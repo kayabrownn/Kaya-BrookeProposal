@@ -3,14 +3,12 @@
 
 ## What idea(s) do you have for your final project?
 
-obstacle course via roblox studio (scripting)
-
-race track where user can drive car and avoid driving off track
-
-user selection of car
-end destination must be reached,
-multiple levels?
-save user progress?
+1. obstacle course via roblox studio (scripting)
+2. race track where user can drive car and avoid driving off track
+3. user selection of car
+4. end destination must be reached,
+5. multiple levels?
+6. save user progress?
 
 ## If you plan to collaborate with one or two classmates, what are their names?
 
