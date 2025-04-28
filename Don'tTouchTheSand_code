@@ -159,6 +159,89 @@ bouncePad.Touched:Connect(function(touch)
 	end
 end)
 
+#### moving platforms
+
+local TweenService = game:GetService("TweenService")
+
+local platform = script.Parent
+local block1 = workspace:WaitForChild("block1")
+local block2 = workspace:WaitForChild("block2")
+
+local tweenInfo = TweenInfo.new(
+	2, -- time in seconds
+	Enum.EasingStyle.Linear,
+	Enum.EasingDirection.InOut,
+	-1, -- repeat count (-1 for infinite)
+	true -- reverses direction after reaching the goal
+)
+
+
+local tween = TweenService:Create(platform, tweenInfo, {Position = block2.Position})
+platform.Position = block1.Position
+tween:Play()
+
+### spinning bricks
+
+script.Parent.Touched:Connect(function(hit)-- hit
+	if hit.Parent:FindFirstChild("Humanoid") then
+		hit.Parent:FindFirstChild("Humanoid").Health = 0
+	end
+end)--finish
+
+
+sphere = script.Parent
+a = 0
+repeat
+	sphere.Rotation = Vector3.new( 0, a, 0) --The second value of vector3 is a,
+	wait(.01) 
+	a = a+3 
+until pigs == 1 
+
+
+#### teleport pads
+
+local folder = script.Parent
+local padIsOneDirectional = folder:WaitForChild("OneWay")
+local pad1 = folder:WaitForChild("Pad1")
+local pad2 = folder:WaitForChild("Pad2")
+local bounce = true
+
+-----------------------
+
+function warpPlayer(player, location)
+	
+	local HRP = player:WaitForChild("HumanoidRootPart")
+	HRP.Position = Vector3.new(location.X, location.Y + 3, location.Z)
+	
+end
+
+pad1.Touched:Connect(function(hit)
+	
+	if hit.Parent and hit.Parent:FindFirstChildOfClass("Humanoid").Health > 0 and bounce then
+		
+		bounce = false
+		pad2.PointLight.Enabled = true
+		warpPlayer(hit.Parent, pad2.Position)
+		task.wait(2)
+		bounce = true
+		pad2.PointLight.Enabled = false
+	end
+	
+end)
+
+pad2.Touched:Connect(function(hit)
+
+	if hit.Parent and hit.Parent:FindFirstChildOfClass("Humanoid").Health > 0 and bounce and padIsOneDirectional.Value == false then
+
+		bounce = false
+		pad1.PointLight.Enabled = true
+		warpPlayer(hit.Parent, pad1.Position)
+		task.wait(2)
+		bounce = true
+		pad1.PointLight.Enabled = false
+	end
+
+end)
 
 
 
